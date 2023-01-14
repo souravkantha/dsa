@@ -1,6 +1,6 @@
 package sorting;
 
-public class MergeTwoArrays {
+public class MergeTwoSortedArrays {
 	
 	
 	/**
@@ -118,7 +118,7 @@ public class MergeTwoArrays {
 		
 		int [] arr2 = {0, 4, 7, 9, 14, 50, 60, 70, 80};
 		
-		MergeTwoArrays intMerger = new MergeTwoArrays();
+		MergeTwoSortedArrays intMerger = new MergeTwoSortedArrays();
 		
 		int []
 				mergedArray = new int[arr1.length + arr2.length];

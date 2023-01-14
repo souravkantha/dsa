@@ -3,7 +3,7 @@ package sorting;
 public class MergeSortVanilla {
 	
 	
-	MergeTwoArrays merger = new MergeTwoArrays();
+	MergeTwoSortedArrays merger = new MergeTwoSortedArrays();
 	
 	public int[] sort(int[] arr) {
 		// TODO Auto-generated method stub
