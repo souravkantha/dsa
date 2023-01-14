@@ -1,5 +1,13 @@
 package sorting;
 
+/**
+ * 
+ * We will use 2 finger approach to merge two sorted arrays in O(m + n) time where m & n 
+ * are size of two input arrays respectively
+ * 
+ * @author Sourav Kantha
+ *
+ */
 public class MergeTwoSortedArrays {
 	
 	
