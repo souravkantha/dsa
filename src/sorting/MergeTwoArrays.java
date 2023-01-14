@@ -13,29 +13,28 @@ public class MergeTwoArrays {
 	 * @param arr2
 	 * @return
 	 */
-	public  Integer [] merge(Integer [] arr1, Integer [] arr2) {
+	public  int [] merge(int [] resultArr, int resultArrStartIndex, int [] arr1, int [] arr2) {
 		
-		Integer []
-			mergedArray = new Integer[arr1.length + arr2.length];
-		
+		if(resultArr == null)
+			resultArr = new int[arr1.length + arr2.length];
 		
 		Integer arr1Pointer = 0;
 		Integer arr2Pointer = 0; // both starts from index 0
 		
-		Integer mergedArrayPointer = 0;
+		Integer mergedArrayPointer = resultArrStartIndex;
 		
 		while(arr1Pointer < arr1.length && arr2Pointer < arr2.length) {
 			
 			if(arr1[arr1Pointer] < arr2[arr2Pointer]) { // value in arr 1 at position arr1Pointer is lesser than
 														// arr2 at position arr2Pointer 
-				mergedArray [mergedArrayPointer] =      // then copy arr1 val 
+				resultArr [mergedArrayPointer] =      // then copy arr1 val 
 						arr1[arr1Pointer];
 				
 				mergedArrayPointer ++; arr1Pointer ++;  // increment to move on
 				
 			} else {									// else
 				
-				mergedArray [mergedArrayPointer] =      // copy arr2 val (increasing order)
+				resultArr [mergedArrayPointer] =      // copy arr2 val (increasing order)
 						arr2[arr2Pointer];
 				
 				mergedArrayPointer ++; arr2Pointer ++;  // increment to move on
@@ -50,7 +49,7 @@ public class MergeTwoArrays {
 		// For array 1, copy remaining elements into result array
 		while (arr1Pointer < arr1.length) {
 			
-			mergedArray[mergedArrayPointer] = arr1[arr1Pointer];
+			resultArr[mergedArrayPointer] = arr1[arr1Pointer];
 			
 			mergedArrayPointer ++; arr1Pointer ++;
 		}
@@ -58,14 +57,14 @@ public class MergeTwoArrays {
 		// For array 2, copy remaining elements into result array
 		while (arr2Pointer < arr2.length) {
 			
-			mergedArray[mergedArrayPointer] = arr2[arr2Pointer];
+			resultArr[mergedArrayPointer] = arr2[arr2Pointer];
 			
 			mergedArrayPointer ++; arr2Pointer ++;  
 		}
 		
 		
 		
-		return mergedArray;
+		return resultArr;
 		
 	}
 	
@@ -75,7 +74,7 @@ public class MergeTwoArrays {
 	 * 
 	 * @param arr
 	 */
-	private void printArray(Integer [] arr) {
+	public void printArray(int [] arr) {
 		
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print (arr[i] + " ");
@@ -85,12 +84,13 @@ public class MergeTwoArrays {
 	}
 	
 	
+	
 	/**
 	 * Used for testing
 	 * 
 	 * @param arr
 	 */
-	private Boolean assertEquals(Integer [] actual, Integer [] expected) {
+	private Boolean assertEquals(int [] actual, int [] expected) {
 		
 		if(actual.length != expected.length) 
 			return Boolean.FALSE;
@@ -114,17 +114,20 @@ public class MergeTwoArrays {
 	 */
 	public static void main(String[] args) {
 		
-		Integer [] arr1 = {1, 2, 5, 6, 10};
+		int [] arr1 = {1, 2, 5, 6, 10};
 		
-		Integer [] arr2 = {0, 4, 7, 9, 14, 50, 60, 70, 80};
+		int [] arr2 = {0, 4, 7, 9, 14, 50, 60, 70, 80};
 		
 		MergeTwoArrays intMerger = new MergeTwoArrays();
 		
-		Integer [] mergedIntArr = intMerger.merge(arr1, arr2);
+		int []
+				mergedArray = new int[arr1.length + arr2.length];
+		
+		int [] mergedIntArr = intMerger.merge(mergedArray, 0, arr1, arr2);
 		
 		intMerger.printArray(mergedIntArr);
 		
-		System.out.println(intMerger.assertEquals(mergedIntArr,new Integer []{0, 1, 2, 4, 5 ,6, 7 ,9, 10, 14, 50, 60, 70, 80 }));
+		System.out.println(intMerger.assertEquals(mergedIntArr,new int []{0, 1, 2, 4, 5 ,6, 7 ,9, 10, 14, 50, 60, 70, 80 }));
 		
 		
 	}
