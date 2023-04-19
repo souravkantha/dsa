@@ -4,9 +4,8 @@ package misc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.PriorityQueue;
-import java.util.Collections;
+import java.util.Scanner;
 /*
  * Create the Student and Priorities classes here.
  */
@@ -36,8 +35,11 @@ class Priorities {
             
         }
         
-        result.addAll(queue);
-        Collections.sort(result);
+       
+        while (!queue.isEmpty()) {
+            result.add(queue.poll());
+        }
+        
         return result;
         
     }
