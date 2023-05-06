@@ -5,6 +5,8 @@ import java.util.Map;
 
 class TrieNode {
 	
+	Character val;
+	TrieNode parent;
 	Map<Character, TrieNode> nodeMap;
 	boolean endOfWord;
 	
@@ -22,8 +24,8 @@ public class Trie {
 	public Trie() {
 		
 		root = new TrieNode();
-		
-		
+		root.parent = null;
+		root.val = null;
 	}
 	
 	public boolean contains(String prefix) {
@@ -96,7 +98,6 @@ public class Trie {
 		
 	}
 	
-	
 	private TrieNode add(Character c, TrieNode currNode, boolean endOfWord) {
 		
 		if (!currNode.nodeMap.containsKey(c)) {
@@ -104,37 +105,105 @@ public class Trie {
 			TrieNode newNode = new TrieNode();
 			currNode.nodeMap.put(c, newNode);
 			
+			// set parent node
+			newNode.parent = currNode;
+			newNode.val = c;
+			
 			currNode = newNode;
 			currNode.endOfWord = endOfWord;
 			
-		} 
+		} else {
+			
+			currNode = currNode.nodeMap.get(c);
+		}
 		
 		return currNode;
 		
 	}
 	
+	public boolean removeWord(final String word) {
+		
+		
+		TrieNode currNode = root;
+		
+		for (Character c : word.toCharArray()) {
+			
+			if (!currNode.nodeMap.containsKey(c)) {
+				
+				return false; // word does not exist
+			} else {
+				
+				currNode = currNode.nodeMap.get(c);
+				
+			}
+			
+			
+		}
+		
+		if (currNode.endOfWord) {
+			
+			// mark currnode end of word as false if there exist another char in the map otherwise remove the node
+			
+			if (currNode.nodeMap.isEmpty()) {
+				
+				Character childNodeVal = null;
+				
+				while (currNode.nodeMap.isEmpty()) {
+					
+					childNodeVal = currNode.val;
+					currNode = currNode.parent;
+					
+					
+				}
+				
+				currNode.nodeMap.remove(childNodeVal);
+				
+			} else {
+				
+				currNode.endOfWord = false;
+				
+			}
+			
+			return true;
+		} 
+		
+		return false;
+		
+	}
 	
 	public static void main(String[] args) {
+		
+		
 		
 		
 		// Test
 		
 		Trie trie = new Trie();
 		trie.addWord("abcd");
+		trie.addWord("abd");
 		
-		System.out.println(  trie.searchWord("abcd")); // should return true
 		
-		System.out.println( trie.searchWord("abc")); // should return false
-		
-		System.out.println( trie.contains("abc")); // should return true
-		
-		System.out.println( trie.contains("abd")); // should return false
-		
-		System.out.println( trie.contains("")); // should return false
-		
-		System.out.println( trie.searchWord(null)); // should return false
-		
-		System.out.println( trie.searchWord("sdsds")); // should return false
+		  System.out.println( trie.searchWord("abcd")); // should return true
+		  
+		  System.out.println( trie.searchWord("abc")); // should return false
+		  
+		  System.out.println( trie.contains("abc")); // should return true
+		  
+		  System.out.println( trie.contains("abd")); // should return true
+		  
+		  System.out.println( trie.contains("")); // should return false
+		  
+		  System.out.println( trie.searchWord(null)); // should return false
+		  
+		  System.out.println( trie.searchWord("sdsds")); // should return false
+		  
+		  System.out.println( trie.removeWord("asjshns")); // should return false
+		  
+		  System.out.println( trie.removeWord("abc")); // should return false
+		  
+		  System.out.println( trie.removeWord("abcd")); // should return true
+		 		
+		System.out.println( trie.contains("abd")); // should return true
 		
 	}
 	
